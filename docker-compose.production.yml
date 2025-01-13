@@ -31,7 +31,7 @@ services:
   gateway:
     image: panovast/kittygram_gateway:latest
     ports:
-      - "808:80"
+      - "80:80"
     volumes:
       - static:/static/
       - media:/media/

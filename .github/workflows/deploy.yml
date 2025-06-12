@@ -103,11 +103,11 @@ jobs:
           script: |
             set -e
             cd /home/${{ secrets.SERVER_LOGIN }}/kittygram
-            sudo docker compose -f docker-compose.production.yml pull
-            sudo docker compose -f docker-compose.production.yml down
-            sudo docker compose -f docker-compose.production.yml up -d
-            sudo docker compose -f docker-compose.production.yml exec backend python manage.py collectstatic --noinput
-            sudo docker compose -f docker-compose.production.yml exec backend python manage.py migrate
+            sudo docker-compose -f docker-compose.production.yml pull
+            sudo docker-compose -f docker-compose.production.yml down
+            sudo docker-compose -f docker-compose.production.yml up -d
+            sudo docker-compose -f docker-compose.production.yml exec backend python manage.py collectstatic --noinput
+            sudo docker-compose -f docker-compose.production.yml exec backend python manage.py migrate
       - name: Set the correct domain in tests.yml
         run: |
           sed -i "s|kittygram_domain:.*|kittygram_domain: http://${{ secrets.SERVER_HOST }}:80|" tests.yml

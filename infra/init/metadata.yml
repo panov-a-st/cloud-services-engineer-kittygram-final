@@ -1,0 +1,21 @@
+#cloud-config
+ssh_pwauth: no
+users:
+  - name: ${SERVER_LOGIN}
+    sudo: 'ALL=(ALL) NOPASSWD:ALL'
+    shell: /bin/bash
+    ssh-authorized-keys:
+        - "${SSH_KEY}"
+write_files:
+  - path: "/opt/vm-install.sh"
+    permissions: "755"
+    content: |
+        #!/bin/bash
+        apt-get update -y
+        apt-get install -y docker.io docker-compose
+        usermod -aG docker ${SERVER_LOGIN}
+        systemctl enable docker
+        systemctl start docker
+    defer: true
+runcmd:
+  - /opt/vm-install.sh

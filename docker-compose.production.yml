@@ -1,5 +1,3 @@
-version: '3'
-
 volumes:
   pg_data:
   static:
@@ -8,6 +6,7 @@ volumes:
 services:
   postgres:
     image: postgres:13
+    container_name: kittygram-postgres-db
     env_file: .env
     volumes:
       - pg_data:/var/lib/postgresql/data/
@@ -19,7 +18,7 @@ services:
       - postgres
     volumes:
       - static:/backend_static
-      - media:/app/media/    
+      - media:/app/media/
 
   frontend:
     image: panovast/kittygram_frontend:latest
